@@ -1,11 +1,15 @@
+# Importing Libraries
 import pygame
 import time
 import random
 
+# Colors
 black=(0,0,0)
 blue=(0,0,255)
 red=(255,0,0)
 white=(255,255,255)
+
+# Initial Conditions and Dimensions
 pygame.init()
 screenX=400
 screenY=400
@@ -16,6 +20,7 @@ dis=pygame.display.set_mode((screenX,screenY))
 gamerunning=True
 gamepaused=False
 gameover=False
+
 snake=[]
 snake.append([startX,startY])
 score=0
@@ -24,7 +29,7 @@ clock = pygame.time.Clock()
 
 pygame.mixer.music.load('Music.mp3')
 
-
+# Utility Functions
 def getfood():
     foodX=int(round(random.randrange(0, screenX-step)/10.0)*10.0)
     foodY=int(round(random.randrange(0, screenX-step)/10.0)*10.0)
@@ -40,10 +45,12 @@ score_font = pygame.font.SysFont("comicsansms", 15)
 def message(msg, color,screenPos):
     mesg = font_style.render(msg, True, color)
     dis.blit(mesg, screenPos)
+    
 def addbody():
     length=len(snake)
     l=snake[length-1]
     snake.append(l)
+    
 def movesnake(headX,headY):
     length=len(snake)
     temp=snake[0]
@@ -54,6 +61,7 @@ def movesnake(headX,headY):
         temp=temp2
                 
     snake[0]=[headX,headY]
+    
 def collision():
     global gameover
     if snake[0] in snake[1:len(snake)] and len(snake)>=4:
@@ -65,7 +73,8 @@ def collision():
 def snscore():
     value = score_font.render("Your Score: " + str(score), True, red)
     dis.blit(value, [0, 0])
-
+    
+# Game Loop
 l=[]
 l=getfood()
 head=snake[0]
